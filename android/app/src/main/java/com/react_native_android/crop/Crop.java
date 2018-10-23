@@ -13,4 +13,7 @@ public interface Crop {
      * @param promise
      */
     void selectWithCrop(int outputX, int outputY, Promise promise);
+
+
+    void sayHelloToAndroid(String msg);
 }

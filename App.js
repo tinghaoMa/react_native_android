@@ -12,7 +12,8 @@ import {
     View,
     Image,
     TextInput,
-    Platform
+    Platform,
+    TouchableOpacity
 } from 'react-native';
 import ImageCrop from './ImageCrop'
 const ASPECT_X="2";
@@ -65,13 +66,34 @@ export default class index extends Component {
                     <Text
                         onPress={()=> this.onSelectCrop()}
                     >裁切图片</Text>
-
                 </View>
                 <Text>{imgUrl}</Text>
                 {imageView}
+                {this.renderButton()}
             </View>
         );
     }
+
+    renderButton() {
+        return <TouchableOpacity
+            onPress={()=>{
+                this.sayHiToAndroid();
+            }}
+        >
+            <Text style={styles.text}>
+
+                Press Say Hello To Android
+
+            </Text>
+
+
+        </TouchableOpacity>
+    }
+
+    sayHiToAndroid() {
+        ImageCrop.sayHelloToAndroid("Hello Andromd I'am React-Native");
+    }
+
 }
 
 const styles = StyleSheet.create({
@@ -84,7 +106,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input:{
+        borderWidth:1,
+        borderColor:'red',
         height:40,
         width:40
+    },
+    text:{
+        fontSize:18,
+        color:'green',
+        fontWeight:'500'
     }
 });

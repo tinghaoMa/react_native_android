@@ -6,8 +6,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
 
-
 public class ImageCropModule extends ReactContextBaseJavaModule implements Crop {
+
     private CropImpl cropImpl;
 
     public ImageCropModule(ReactApplicationContext reactContext) {
@@ -23,6 +23,13 @@ public class ImageCropModule extends ReactContextBaseJavaModule implements Crop 
     @ReactMethod
     public void selectWithCrop(int aspectX, int aspectY, Promise promise) {
         getCrop().selectWithCrop(aspectX, aspectY, promise);
+    }
+
+    @Override
+    @ReactMethod
+    public void sayHelloToAndroid(String msg) {
+        System.out.println("segg6575---@ReactMethod 方法一定要记得添加该注解");
+        getCrop().sayHelloToAndroid(msg);
     }
 
     private CropImpl getCrop() {

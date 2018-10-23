@@ -8,7 +8,6 @@ import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Promise;
 
 
-
 public class CropImpl implements ActivityEventListener, Crop {
     private final int RC_PICK = 50081;
     private final int RC_CROP = 50082;
@@ -62,6 +61,11 @@ public class CropImpl implements ActivityEventListener, Crop {
         this.aspectX = aspectX;
         this.aspectY = aspectY;
         this.activity.startActivityForResult(IntentUtils.getPickIntentWithGallery(), RC_PICK);
+    }
+
+    @Override
+    public void sayHelloToAndroid(String msg) {
+        System.out.println("segg6575---msg = " + msg);
     }
 
     private void onCrop(Uri targetUri, Uri outputUri) {
