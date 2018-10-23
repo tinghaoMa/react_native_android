@@ -77,7 +77,8 @@ public class CropImpl implements ActivityEventListener, Crop {
 
     @Override
     public void sayHelloToAndroid(String msg, Callback sucess) {
-        System.out.println("segg6575---msg = " + msg);
+        String name = Thread.currentThread().getName();
+        System.out.println("segg6575---msg = " + msg + "     js-thread-name " + name);
         sucess.invoke("我是Native 我收到了你的消息 你好");
 
 
