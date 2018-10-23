@@ -7,13 +7,15 @@ import android.net.Uri;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+
+import java.util.ArrayList;
 
 
 public class CropImpl implements ActivityEventListener, Crop {
@@ -123,5 +125,22 @@ public class CropImpl implements ActivityEventListener, Crop {
     private void onCrop(Uri targetUri, Uri outputUri) {
         this.activity.startActivityForResult(IntentUtils.getCropIntentWith(targetUri, outputUri,
                 aspectX, aspectY), RC_CROP);
+    }
+
+
+    @Override
+    public void onRnSendMap(ReadableMap value) {
+        String name = value.getString("name");
+        int age = value.getInt("age");
+        System.out.println("segg6575---name = " + name);
+        System.out.println("segg6575---age = " + age);
+    }
+
+    @Override
+    public void onRnSendArray(ReadableArray array) {
+        ArrayList<Object> objects = array.toArrayList();
+        for (Object obj : objects) {
+            System.out.println("segg6575---obj = " + String.valueOf(obj));
+        }
     }
 }

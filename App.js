@@ -88,6 +88,7 @@ export default class index extends Component {
                 <Text style={styles.text}>
                     {this.state.nativeMapArrayData}
                 </Text>
+                {this.renderMsgButton()}
             </View>
         );
     }
@@ -98,7 +99,7 @@ export default class index extends Component {
                 this.sayHiToAndroid();
             }}
         >
-            <Text style={styles.text}>
+            <Text style={styles.textPress}>
 
                 Press Say Hello To Android
 
@@ -145,6 +146,28 @@ export default class index extends Component {
               params[1]=${params[1]}`
         })
     }
+
+    rnSendMapToAndroid() {
+        ImageCrop.onRnSendMap({name: 'rn', age: 10});
+        ImageCrop.onRnSendArray([1, 2, 3, 4, 5, 6]);
+    }
+
+
+    renderMsgButton() {
+        return <TouchableOpacity
+            onPress={() => {
+                this.rnSendMapToAndroid();
+            }}
+        >
+            <Text style={styles.textPress}>
+
+                Press SendMap To Android
+
+            </Text>
+
+
+        </TouchableOpacity>
+    }
 }
 
 const styles = StyleSheet.create({
@@ -165,6 +188,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         color: 'green',
+        fontWeight: '500'
+    },
+    textPress: {
+        fontSize: 18,
+        color: 'red',
         fontWeight: '500'
     }
 });

@@ -2,7 +2,8 @@ package com.react_native_android.crop;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
-
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 
 
 public interface Crop {
@@ -17,4 +18,8 @@ public interface Crop {
 
 
     void sayHelloToAndroid(String msg,Callback sucess);
+
+    void onRnSendMap(ReadableMap value);
+
+    void onRnSendArray(ReadableArray array);
 }
