@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
 
@@ -64,8 +65,9 @@ public class CropImpl implements ActivityEventListener, Crop {
     }
 
     @Override
-    public void sayHelloToAndroid(String msg) {
+    public void sayHelloToAndroid(String msg, Callback sucess) {
         System.out.println("segg6575---msg = " + msg);
+        sucess.invoke("我是Native 我收到了你的消息 你好");
     }
 
     private void onCrop(Uri targetUri, Uri outputUri) {

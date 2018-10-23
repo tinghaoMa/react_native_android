@@ -1,5 +1,6 @@
 package com.react_native_android.crop;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
 
@@ -15,5 +16,5 @@ public interface Crop {
     void selectWithCrop(int outputX, int outputY, Promise promise);
 
 
-    void sayHelloToAndroid(String msg);
+    void sayHelloToAndroid(String msg,Callback sucess);
 }

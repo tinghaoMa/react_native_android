@@ -16,22 +16,25 @@ import {
     TouchableOpacity
 } from 'react-native';
 import ImageCrop from './ImageCrop'
-const ASPECT_X="2";
-const ASPECT_Y="1";
+
+const ASPECT_X = "2";
+const ASPECT_Y = "1";
 export default class index extends Component {
     state = {
-        result: '/sdcard/bu_logo.png'
+        result: '/sdcard/bu_logo.png',
+        receive_msg: ''
     }
 
     onSelectCrop() {
-        let x=this.aspectX?this.aspectX:ASPECT_X;
-        let y=this.aspectY?this.aspectY:ASPECT_Y;
-        ImageCrop.selectWithCrop(parseInt(x),parseInt(y)).then(result=> {
+        let x = this.aspectX ? this.aspectX : ASPECT_X;
+        let y = this.aspectY ? this.aspectY : ASPECT_Y;
+        ImageCrop.selectWithCrop(parseInt(x), parseInt(y)).then(result => {
             console.log(`result = ${result}`);
             this.setState({
-                result: result['imageUrl']?result['imageUrl']:result
+                result: result['imageUrl'] ? result['imageUrl'] : result
             })
-        }).catch(e=> {6
+        }).catch(e => {
+            6
             this.setState({
                 result: e
             })
@@ -39,12 +42,12 @@ export default class index extends Component {
     }
 
     render() {
-        let imgUrl =Platform.OS==='android'? 'file://' + this.state.result:this.state.result;
+        let imgUrl = Platform.OS === 'android' ? 'file://' + this.state.result : this.state.result;
         console.log(`imgUrl = ${imgUrl}`);
-        let imageView=this.state.result===""?null:
+        let imageView = this.state.result === "" ? null :
             <Image
                 resizeMode='contain'
-                style={{height: 200,width:200}}
+                style={{height: 200, width: 200}}
                 source={{uri: imgUrl}}/>
         return (
             <View style={styles.container}>
@@ -55,28 +58,32 @@ export default class index extends Component {
                     <TextInput
                         style={styles.input}
                         defaultValue={ASPECT_X}
-                        onChangeText={aspectX=>this.aspectX=aspectX}
+                        onChangeText={aspectX => this.aspectX = aspectX}
                     />
                     <Text>比 高:</Text>
                     <TextInput
                         style={styles.input}
                         defaultValue={ASPECT_Y}
-                        onChangeText={aspectY=>this.aspectY=aspectY}
+                        onChangeText={aspectY => this.aspectY = aspectY}
                     />
                     <Text
-                        onPress={()=> this.onSelectCrop()}
-                    >裁切图片</Text>
+                        style={[styles.text, {marginLeft: 20}]}
+                        onPress={() => this.onSelectCrop()}
+                    >点击裁切图片</Text>
                 </View>
                 <Text>{imgUrl}</Text>
                 {imageView}
                 {this.renderButton()}
+                <Text style={styles.text}>
+                    {this.state.receive_msg}
+                </Text>
             </View>
         );
     }
 
     renderButton() {
         return <TouchableOpacity
-            onPress={()=>{
+            onPress={() => {
                 this.sayHiToAndroid();
             }}
         >
@@ -91,7 +98,12 @@ export default class index extends Component {
     }
 
     sayHiToAndroid() {
-        ImageCrop.sayHelloToAndroid("Hello Andromd I'am React-Native");
+        ImageCrop.sayHelloToAndroid("Hello Andromd I'am React-Native", (text) => {
+            console.log(`text = ${text}`);
+            this.setState({
+                receive_msg: text
+            })
+        });
     }
 
 }
@@ -99,21 +111,21 @@ export default class index extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop:20
+        marginTop: 20
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center'
     },
-    input:{
-        borderWidth:1,
-        borderColor:'red',
-        height:40,
-        width:40
+    input: {
+        borderWidth: 1,
+        borderColor: 'red',
+        height: 40,
+        width: 40
     },
-    text:{
-        fontSize:18,
-        color:'green',
-        fontWeight:'500'
+    text: {
+        fontSize: 18,
+        color: 'green',
+        fontWeight: '500'
     }
 });

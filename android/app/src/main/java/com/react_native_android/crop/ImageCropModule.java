@@ -1,5 +1,6 @@
 package com.react_native_android.crop;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -27,9 +28,9 @@ public class ImageCropModule extends ReactContextBaseJavaModule implements Crop 
 
     @Override
     @ReactMethod
-    public void sayHelloToAndroid(String msg) {
+    public void sayHelloToAndroid(String msg, Callback sucess) {
         System.out.println("segg6575---@ReactMethod 方法一定要记得添加该注解");
-        getCrop().sayHelloToAndroid(msg);
+        getCrop().sayHelloToAndroid(msg,sucess);
     }
 
     private CropImpl getCrop() {
