@@ -3,6 +3,7 @@ package com.react_native_android.crop;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
@@ -10,9 +11,10 @@ import com.facebook.react.bridge.ReactMethod;
 public class ImageCropModule extends ReactContextBaseJavaModule implements Crop {
 
     private CropImpl cropImpl;
-
+    private ReactContext reactContext;
     public ImageCropModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        this.reactContext = reactContext;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class ImageCropModule extends ReactContextBaseJavaModule implements Crop 
 
     private CropImpl getCrop() {
         if (cropImpl == null) {
-            cropImpl = CropImpl.of(getCurrentActivity());
+            cropImpl = CropImpl.of(getCurrentActivity(),this.reactContext);
             getReactApplicationContext().addActivityEventListener(cropImpl);
         } else {
             cropImpl.updateActivity(getCurrentActivity());

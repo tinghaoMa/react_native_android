@@ -13,7 +13,8 @@ import {
     Image,
     TextInput,
     Platform,
-    TouchableOpacity
+    TouchableOpacity,
+    DeviceEventEmitter
 } from 'react-native';
 import ImageCrop from './ImageCrop'
 
@@ -22,7 +23,8 @@ const ASPECT_Y = "1";
 export default class index extends Component {
     state = {
         result: '/sdcard/bu_logo.png',
-        receive_msg: ''
+        receive_msg: '',
+        nativeCallMsgs: '',
     }
 
     onSelectCrop() {
@@ -77,6 +79,10 @@ export default class index extends Component {
                 <Text style={styles.text}>
                     {this.state.receive_msg}
                 </Text>
+
+                <Text style={styles.text}>
+                    {this.state.nativeCallMsgs}
+                </Text>
             </View>
         );
     }
@@ -98,7 +104,7 @@ export default class index extends Component {
     }
 
     sayHiToAndroid() {
-        ImageCrop.sayHelloToAndroid("Hello Andromd I'am React-Native", (text) => {
+        ImageCrop.sayHelloToAndroid("Hello Android I'am React-Native", (text) => {
             console.log(`text = ${text}`);
             this.setState({
                 receive_msg: text
@@ -106,6 +112,20 @@ export default class index extends Component {
         });
     }
 
+
+    componentDidMount() {
+        this.rnListener = DeviceEventEmitter.addListener('nativeCallRN', (params) => this.onNativeCallRN(params))
+    }
+
+    componentWillUnmount() {
+        this.rnListener && this.rnListener.remove();
+    }
+
+    onNativeCallRN(params) {
+        this.setState({
+            nativeCallMsgs: `params.name =${params.name}   params.result=${params.result}`
+        })
+    }
 }
 
 const styles = StyleSheet.create({

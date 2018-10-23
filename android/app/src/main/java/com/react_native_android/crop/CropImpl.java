@@ -5,8 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 
 public class CropImpl implements ActivityEventListener, Crop {
@@ -20,13 +26,15 @@ public class CropImpl implements ActivityEventListener, Crop {
     private int aspectX;
     private int aspectY;
     private Activity activity;
+    private ReactContext mReactContext;
 
-    public static CropImpl of(Activity activity) {
-        return new CropImpl(activity);
+    public static CropImpl of(Activity activity, ReactContext reactContext) {
+        return new CropImpl(activity, reactContext);
     }
 
-    private CropImpl(Activity activity) {
+    private CropImpl(Activity activity, ReactContext reactContext) {
         this.activity = activity;
+        this.mReactContext = reactContext;
     }
 
     public void updateActivity(Activity activity) {
@@ -68,6 +76,41 @@ public class CropImpl implements ActivityEventListener, Crop {
     public void sayHelloToAndroid(String msg, Callback sucess) {
         System.out.println("segg6575---msg = " + msg);
         sucess.invoke("我是Native 我收到了你的消息 你好");
+
+
+        WritableMap map = Arguments.createMap();
+        map.putString("name", "mth");
+        map.putBoolean("result", true);
+        sendEventMap(this.mReactContext, "nativeCallRN", map);
+
+//        WritableArray array = Arguments.createArray();
+//        array.pushBoolean(true);
+//        array.pushString("hello array");
+//        sendEventArray(this.mReactContext, "nativeCallRN", array);
+    }
+
+    /**
+     * 向RN 直接传递数据
+     *
+     * @param reactContext
+     * @param eventName
+     * @param params
+     */
+    private void sendEventMap(ReactContext reactContext, String eventName, WritableMap params) {
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit
+                (eventName, params);
+    }
+
+    /**
+     * 向RN 直接传递数据 集合
+     *
+     * @param reactContext
+     * @param eventName
+     * @param params
+     */
+    private void sendEventArray(ReactContext reactContext, String eventName, WritableArray params) {
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit
+                (eventName, params);
     }
 
     private void onCrop(Uri targetUri, Uri outputUri) {
