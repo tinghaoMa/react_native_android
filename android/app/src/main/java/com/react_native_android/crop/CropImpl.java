@@ -12,6 +12,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 
@@ -81,13 +82,19 @@ public class CropImpl implements ActivityEventListener, Crop {
         WritableMap map = Arguments.createMap();
         map.putString("name", "mth");
         map.putBoolean("result", true);
-        sendEventMap(this.mReactContext, "nativeCallRN", map);
+        sendEventMap(this.mReactContext, "nativeCallRNMap", map);
 
-//        WritableArray array = Arguments.createArray();
-//        array.pushBoolean(true);
-//        array.pushString("hello array");
-//        sendEventArray(this.mReactContext, "nativeCallRN", array);
+        WritableArray array = Arguments.createArray();
+        array.pushBoolean(true);
+        array.pushString("hello array");
+        //已经使用过的map 不能再使用
+        WritableMap map1 = Arguments.createMap();
+        map1.putString("name1", "mth");
+        map1.putBoolean("result1", true);
+        array.pushMap(map1);
+        sendEventArray(this.mReactContext, "nativeCallRNMapArray", array);
     }
+
 
     /**
      * 向RN 直接传递数据

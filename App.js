@@ -24,7 +24,8 @@ export default class index extends Component {
     state = {
         result: '/sdcard/bu_logo.png',
         receive_msg: '',
-        nativeCallMsgs: '',
+        nativeMapData: '',
+        nativeMapArrayData: '',
     }
 
     onSelectCrop() {
@@ -81,7 +82,11 @@ export default class index extends Component {
                 </Text>
 
                 <Text style={styles.text}>
-                    {this.state.nativeCallMsgs}
+                    {this.state.nativeMapData}
+                </Text>
+
+                <Text style={styles.text}>
+                    {this.state.nativeMapArrayData}
                 </Text>
             </View>
         );
@@ -114,16 +119,30 @@ export default class index extends Component {
 
 
     componentDidMount() {
-        this.rnListener = DeviceEventEmitter.addListener('nativeCallRN', (params) => this.onNativeCallRN(params))
+        this.rnMapListener = DeviceEventEmitter.addListener('nativeCallRNMap',
+            (params) => this.onNativeCallRNMap(params))
+        this.rnMapArrayListener = DeviceEventEmitter.addListener('nativeCallRNMapArray',
+            (params) => this.onNativeCallRNMapArray(params))
     }
 
     componentWillUnmount() {
-        this.rnListener && this.rnListener.remove();
+        this.rnMapListener && this.rnMapListener.remove();
+        this.rnMapArrayListener && this.rnMapArrayListener.remove();
     }
 
-    onNativeCallRN(params) {
+    onNativeCallRNMap(params) {
+        console.log('hello onNativeCallRN');
         this.setState({
-            nativeCallMsgs: `params.name =${params.name}   params.result=${params.result}`
+            nativeMapData: `params.name =${params.name} 
+              params.result=${params.result}`
+        })
+    }
+
+    onNativeCallRNMapArray(params) {
+        console.log('hello onNativeCallRN');
+        this.setState({
+            nativeMapArrayData: `params[0] =${params[0]} 
+              params[1]=${params[1]}`
         })
     }
 }
