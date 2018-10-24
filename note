@@ -1,0 +1,18 @@
+注意：
+android studio更新3.0之后
+buildTypes{
+  releaseStaging {
+            buildConfigField "String", "CODEPUSH_KEY", '"9Xi6-2Wpl-L26_snOdhHJuiL-MzEaf21e4cc-b25f-4aff-8c29-df45783ba398"'
+  }
+}
+要在工程react-native-code-push工程里面也添加相关的标签 否则会报错
+
+
+
+1.发布
+code-push release-react react_native_android android  --t 1.0.0 --dev false --d Staging --des "1.设置背景页面为灰色" --m true
+
+2.查看版本发布信息
+code-push deployment  ls react_native_android
+
+3.更新之前要记得把设置DevSettings里面吧端口号换成一串数字，要不更新完毕重启之后加载的还是本地服务器的资源
