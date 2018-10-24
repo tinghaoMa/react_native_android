@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.facebook.react.ReactActivity;
+import com.microsoft.codepush.react.CodePush;
 
 import java.security.Permission;
 import java.security.Permissions;
