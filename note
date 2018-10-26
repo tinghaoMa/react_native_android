@@ -9,8 +9,14 @@ buildTypes{
 
 
 
-1.发布
+code-push login
+
+
+1.发布debug
 code-push release-react react_native_android android  --t 1.0.0 --dev false --d Staging --des "1.设置背景页面为灰色" --m true
+
+发布release 线上
+code-push release-react react_native_android android  --t 1.0.0 --dev true --d Production --des "1.设置背景页面为红色 2.text位置居中" --m true
 
 2.查看版本发布信息
 code-push deployment  ls react_native_android
