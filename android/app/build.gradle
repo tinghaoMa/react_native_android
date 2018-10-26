@@ -141,11 +141,13 @@ android {
         debug {
             buildConfigField "String", "CODEPUSH_KEY", '"9Xi6-2Wpl-L26_snOdhHJuiL-MzEaf21e4cc-b25f-4aff-8c29-df45783ba398"'
         }
-    }
 
         releaseStaging {
             buildConfigField "String", "CODEPUSH_KEY", '"9Xi6-2Wpl-L26_snOdhHJuiL-MzEaf21e4cc-b25f-4aff-8c29-df45783ba398"'
         }
+    }
+
+
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
