@@ -9,7 +9,8 @@ import {
     TouchableOpacity,
     DeviceEventEmitter
 } from 'react-native';
-import ImageCrop from './ImageCrop'
+import ImageCrop from './ImageCrop';
+import RCTCustomButton from './RCTCustomButton';
 
 const ASPECT_X = "2";
 const ASPECT_Y = "1";
@@ -82,6 +83,9 @@ export default class index extends Component {
                     {this.state.nativeMapArrayData}
                 </Text>
                 {this.renderMsgButton()}
+
+
+                <RCTCustomButton style = {{width:160,height:50}} text="原生自定义按钮组件"/>
             </View>
         );
     }

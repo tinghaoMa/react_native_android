@@ -5,4 +5,4 @@ import App from './App';
 import CodePushPage from './CodePushPage';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => CodePushPage);
+AppRegistry.registerComponent(appName, () => App);

@@ -5,6 +5,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.react_native_android.view.RCTCustomButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,9 @@ public class ImageCropReactPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        List<ViewManager> managers = new ArrayList<>();
+        managers.add(new RCTCustomButton());
+        return managers;
     }
 
     @Override
